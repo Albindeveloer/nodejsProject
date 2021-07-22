@@ -1,0 +1,50 @@
+<section>
+  <div class="container">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">item</th>
+          <th scope="col">Title</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+            <td><img
+                style="width: 70px;height:70px"
+                src="/product-images/{{this.product._id}}.jpg"
+              /></td>
+            <td>{{this.product.name}}</td>
+            <td>
+
+              <button
+                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}',-1))"
+              >-</button><span
+                id="{{this.product._id}}"
+              >{{this.quantity}}</span>
+              <button
+                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}',1))"
+              >+</button>
+            </td>
+            <td>
+              <button
+                class="btn btn-danger"
+                onclick="(removeProduct('{{this._id}}','{{this.product._id}}'))"
+              >remove</button>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <br />
+    <br />
+    <hr />
+    <div>
+      <h5>Toal Amount:<b>10000</b></h5>
+      <a href="/place-order" class="btn btn-success mt-3">Place Order</a>
+    </div>
+  </div>
+
+</section>
