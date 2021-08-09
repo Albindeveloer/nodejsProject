@@ -3,7 +3,7 @@
     <div class="row mt-5 col-md-6">
       <a href="admin/add-product" class="btn btn-success ml-auto">add product</a>
     </div>
-    <table class="table mt-5">
+    <table class="table mt-5" id="productsTable" >
       <thead>
         <tr>
           <th scope="col">no</th>
@@ -12,12 +12,14 @@
           <th scope="col">description</th>
           <th scope="col">price</th>
           <th scope="col">image</th>
+          <th scope="col">total quantity</th>
+          <th scope="col">options</th>
         </tr>
       </thead>
       <tbody>
         {{#each products}}
           <tr>
-            <th scope="row">1</th>
+            <th scope="row">*</th>
             <td>{{this.name}}</td>
             <td>{{this.category}}</td>
             <td>{{this.description}}</td>
@@ -27,6 +29,7 @@
                 src="/product-images/{{this._id}}.jpg"
                 alt=""
               /></td>
+              <td>{{this.totalQuantity}}</td>
             <td><a
                 href="/admin/edit-product/{{this._id}}"
                 class="btn btn-success"
@@ -44,3 +47,10 @@
     </table>
   </div>
 </section>
+
+<script>
+
+  $(document).ready( function () {
+    $('#productsTable').DataTable();
+} );
+</script>

@@ -1,27 +1,32 @@
-<section>
-  <div class="container mt-5">
+<section class="bg-light">
+  <div class="container mt-5 ">
     <div class="row">
-
       {{#each products}}
 
-        <div class="col-md-3">
-          <div class="card" style="width: 14rem;">
+        <div class="col-md-3 pt-3">
+          
+          <div class="card text-white bg-dark  mb-3" style="width: 14rem;">
             <img
-              style="width: 13rem;height:13rem;"
+              style="width: 13rem;height:13rem;padding-left:10px; padding-top:3px"
               src="/product-images/{{this._id}}.jpg"
               class="card-img-top"
               alt="..."
             />
-            <div class="card-body">
+            <div class="card-body" data-search="{{this.name}}" >
               <h5 class="card-title">{{this.name}}</h5>
-              <h5 class="card-title">{{this.category}}</h5>
+              <h5 class="card-title" >{{this.category}}</h5>
               <p class="card-text">{{this.description}}</p>
-              <b class="card-text">{{this.price}}</b>
-
+              <b class="card-text text-primary">{{this.price}}</b>
+               
+              
+              {{#if this.availability}}
+                <s class="card-text text-secondary">out of stock</s>
+                {{else}}
               <button
                 onclick="addToCart('{{this._id}}')"
-                class="btn btn-primary"
+                class="btn btn-dark btn-outline-light"
               >Add to cart</button>
+             {{/if}}
             </div>
           </div>
         </div>
@@ -29,6 +34,3 @@
     </div>
   </div>
 </section>
-<script>
-
-</script>

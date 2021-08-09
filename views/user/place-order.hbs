@@ -1,6 +1,6 @@
 <section>
   <div class="container mt-5">
-    <form action="">
+    <form action="" id="checkout-form">
       <div class="row">
         <div class="col-md-6">
           <h2>Enter delivery details</h2>
@@ -21,11 +21,12 @@
             />
             <label>Mobile</label>
             <input class="form-control" type="text" id="mobile" name="mobile" />
+            <input type="text" name="userId" value="{{user._id}}" hidden>
           </div>
         </div>
         <div class="col-md-4">
           <div class="container mt-5 ml-5 checkout border">
-            <h5>Total Amount: Rs.30000</h5>
+            <h5>Total Amount: Rs.{{total}}</h5>
             <hr />
             <div class="payment">
               <p>payment method</p>
@@ -58,3 +59,72 @@
 
   </div>
 </section>
+
+<script>
+  $("#checkout-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:"/place-order",
+      method:"post",
+      data:$("#checkout-form").serialize(),
+      success:(response)=>{
+        alert(response);
+        if(response.codSuccess){
+          location.href="/order-success"
+        }else{
+
+          razorpayPayment(response)
+        }
+      }
+    })
+  })
+  function razorpayPayment(order){
+    var options = {
+    "key": "rzp_test_YHAW7E0bY9Fl9U", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Albin",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        
+
+        varifyPayment(response,order)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+ rzp1.open();
+
+  }
+
+  function varifyPayment(payment,order){
+    $.ajax({
+      url:"/verify-payment",
+      method:"post",
+      data:{
+        payment,
+        order
+      },
+      success:(response)=>{
+        if(response.status){
+          location.href="/order-success"
+        }else{
+          alert("payment failed")
+        }
+      }
+      
+    })
+  }
+</script>

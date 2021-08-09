@@ -19,7 +19,7 @@
             <a
               class="nav-link active"
               aria-current="page"
-              href="/admin/products"
+              href="/admin"
             >all products</a>
           </li>
           <li class="nav-item">
@@ -30,15 +30,28 @@
           </li>
 
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+       <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{#if adminsession}}
+              {{adminsession.name}}
+            {{else}}
+              Account
+            {{/if}}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {{#if adminsession}}
+              <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+            {{else}}
+              <li><a class="dropdown-item" href="/admin/login">Login</a></li>
+            {{/if}}
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

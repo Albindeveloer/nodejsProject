@@ -5,6 +5,7 @@
         <tr>
           <th scope="col">item</th>
           <th scope="col">Title</th>
+          <th scope="col">Price</th>
           <th scope="col">Quantity</th>
         </tr>
       </thead>
@@ -16,15 +17,16 @@
                 src="/product-images/{{this.product._id}}.jpg"
               /></td>
             <td>{{this.product.name}}</td>
+            <td>{{this.product.price}}</td>
             <td>
 
               <button
-                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}',-1))"
+                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1))"
               >-</button><span
                 id="{{this.product._id}}"
               >{{this.quantity}}</span>
               <button
-                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}',1))"
+                onclick="(changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1))"
               >+</button>
             </td>
             <td>
@@ -42,7 +44,7 @@
     <br />
     <hr />
     <div>
-      <h5>Toal Amount:<b>10000</b></h5>
+      <h5>Toal Amount:<span id="total">{{total}}</b></h5>
       <a href="/place-order" class="btn btn-success mt-3">Place Order</a>
     </div>
   </div>
